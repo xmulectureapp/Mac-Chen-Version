@@ -88,16 +88,16 @@ Mac-Chen-Version
 
 
 ================================================================
-2014年8月24日 16点版本
+2014年8月14日 16点版本
 1  修复数据库update中存在的问题，remind表中没有reminderID和eventID导致不能执行update的语句采用setStringNotEmpty()
 2  整理接口，打包成appinterface Repository
 3  以后这个文件夹作为 功能、BUG的更新出，新建出来的Celebrity Purple、LinkedIn Grey、Original LightBrown作为配色更改的地方
 
 
 ================================================================
+2014年8月14日 17点41分 
 
-
-
+增加StatusInterface，用于统计应用的安装、启动、刷新次数，对应的云端接口status_interface.php
 
 ================================================================
 

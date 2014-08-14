@@ -3,6 +3,7 @@ package com.lecture.lectureapp;
 import java.io.OutputStream;
 
 import com.lecture.lectureapp.R;
+import com.lecture.util.StatusInterface;
 
 import android.app.Activity;
 import android.content.Context;
@@ -87,6 +88,10 @@ public class Appstart extends Activity {
 					Appstart.this.finish();
 				}
 			}, 1500);
+			
+			
+			// 下面是咸鱼的增加，用于统计手机的安装次数、打开次数、刷新次数  2014年8月14日
+			StatusInterface.StatusGo("android_app_installation");
 		} 
 		else 
 		{
@@ -102,6 +107,9 @@ public class Appstart extends Activity {
 					Appstart.this.finish();
 				}
 			}, 1500);
+			
+			// 下面是咸鱼的增加，用于统计手机的安装次数、打开次数、刷新次数  2014年8月14日
+			StatusInterface.StatusGo("android_app_launch");
 		}
 	}
 }

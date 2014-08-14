@@ -25,6 +25,7 @@ import com.lecture.lectureapp.R;
 import com.lecture.localdata.Comment;
 import com.lecture.localdata.Event;
 import com.lecture.util.GetEventsHttpUtil;
+import com.lecture.util.StatusInterface;
 import com.lecture.util.GetEventsHttpUtil.GetEventsCallback;
 
 import android.os.Bundle;
@@ -509,6 +510,7 @@ public class MainView extends Activity
 		//-------------------pull refresh--------------------------
 		
 		public void pullRefresh(final String whichCenter) {
+			
 			GetEventsHttpUtil getEventsUtil = GetEventsHttpUtil
 					.getInstance(new GetEventsCallback() {
 
@@ -551,6 +553,9 @@ public class MainView extends Activity
 						}
 					});
 			getEventsUtil.getInfo(this);
+			
+			// 下面是咸鱼的增加，用于统计手机的安装次数、打开次数、刷新次数  2014年8月14日
+			StatusInterface.StatusGo("android_app_refresh");
 			
 		}
 		

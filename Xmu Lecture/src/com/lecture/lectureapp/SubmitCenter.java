@@ -86,7 +86,7 @@ public class SubmitCenter extends Activity {
 					
 					
 					//下面进行输入框的文本清除
-					//clearAllBlanks();
+					clearAllBlanks();
 					
 					
 				}//end end
