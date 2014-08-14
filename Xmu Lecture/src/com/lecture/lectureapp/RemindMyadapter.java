@@ -394,28 +394,33 @@ public class RemindMyadapter extends BaseAdapter
 						}
 				    }  
 				   });
+			 
 			 holder.linearlayoutRemind.setOnClickListener(new View.OnClickListener() {  
 				    public void onClick(View v) {  
-				     //showInfo4();    
+				         
+				    	
+				    	
 				    	event = mData.get(position);
 				    	event.setReminded(!event.isReminded());
 				    	if (event.isReminded())
 				    	{
 				    		remindIcon_change.setImageDrawable(v.getResources().getDrawable(R.drawable.remind_red));
 				    		remindText_change.setTextColor(v.getResources().getColor(R.color.main_menu_pressed));
-				    		//收藏的话，进行数据表CollectionTable更新
-				    		DBCenter.setRemind(dbCenter.getReadableDatabase(), event.getUid(), true);
+				    		
+				    		
 				    		//添加到日历
 				    		insertIntoCalender();
+				    		//收藏的话，进行数据表CollectionTable更新
+				    		DBCenter.setRemind(dbCenter.getReadableDatabase(), event.getUid(), event.getReminderID(), event.getEventID(), true);
 				    	}
 				    	else
 				    	{
 				    		remindIcon_change.setImageDrawable(v.getResources().getDrawable(R.drawable.remind));
 				    		remindText_change.setTextColor(v.getResources().getColor(R.color.main_menu_normal));
-				    		//收藏的话，进行数据表CollectionTable更新
-				    		DBCenter.setRemind(dbCenter.getReadableDatabase(), event.getUid(), false);
 				    		//从日历删除
 				    		deleteFromCalender();
+				    		//不收藏，进行数据表CollectionTable更新
+				    		DBCenter.setRemind(dbCenter.getReadableDatabase(), event.getUid(), "", "", false);
 				    	}	
 				    }  
 				   });
@@ -435,6 +440,7 @@ public class RemindMyadapter extends BaseAdapter
 		}
 		
 		public void insertIntoCalender() {
+			
 			long calId = 1;
 
 			GregorianCalendar startDate = event.getTimeCalendar();
@@ -464,28 +470,34 @@ public class RemindMyadapter extends BaseAdapter
 			long reminderId = Long.parseLong(newReminder.getLastPathSegment());
 
 			// 记录数据
-			event.setReminderInfo(new ReminderInfo(eventId, reminderId));
-
+			ReminderInfo reminderInfo = new ReminderInfo(eventId, reminderId);
+			//event.setReminderInfo( reminderInfo );
+			
+			event.setReminderID( String.format( "%d", reminderInfo.getReminderId() ) );
+			event.setEventID( String.format( "%d", reminderInfo.getEventId() ) );
 			
 
-			Toast.makeText(mContext, "添加到 收藏页面&日历 成功", Toast.LENGTH_SHORT).show();
+			Toast.makeText(mContext, "添加到收藏和日历 成功", Toast.LENGTH_SHORT).show();
+			
+			
 		}
 
 		public void deleteFromCalender() {
+			
 			Uri deleteReminderUri = null;
 			Uri deleteEventUri = null;
 			deleteReminderUri = ContentUris.withAppendedId(Reminders.CONTENT_URI,
-					event.getReminderInfo().getReminderId());
-			deleteEventUri = ContentUris.withAppendedId(Events.CONTENT_URI, event
-					.getReminderInfo().getEventId());
+					Long.parseLong( event.getReminderID() ) );
+			deleteEventUri = ContentUris.withAppendedId(Events.CONTENT_URI, 
+					Long.parseLong( event.getEventID() ) );
 			int rowR = mContext.getContentResolver().delete(deleteReminderUri,
 					null, null);
 			int rowE = mContext.getContentResolver().delete(deleteEventUri, null,
 					null);
 			if (rowE > 0 && rowR > 0) {
-				Toast.makeText(mContext, "从 收藏页面&日历 删除成功", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, "从收藏和日历 删除成功", Toast.LENGTH_SHORT).show();
 			} else
-				Toast.makeText(mContext, "从 收藏页面&日历 删除失败", Toast.LENGTH_SHORT).show();
+				Toast.makeText(mContext, "从收藏和日历 删除失败", Toast.LENGTH_SHORT).show();
 		}
 		
 		//下面是咸鱼的修改，用于添加没有填写邮箱禁止评论的功能  2014年8月6日 23:16

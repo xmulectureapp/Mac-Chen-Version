@@ -371,7 +371,7 @@ public class DetailView extends Activity {
 					// 收藏的话，进行数据表CollectionTable更新
 					DBCenter.setRemind(
 							DBCenter.getStaticDBCenter(DetailView.this)
-									.getReadableDatabase(), event.getUid(),
+									.getReadableDatabase(), event.getUid(), event.getReminderID(), event.getEventID(),
 							true);
 					// 添加到日历
 					insertIntoCalender();
@@ -383,7 +383,7 @@ public class DetailView extends Activity {
 					// 收藏的话，进行数据表CollectionTable更新
 					DBCenter.setRemind(
 							DBCenter.getStaticDBCenter(DetailView.this)
-									.getReadableDatabase(), event.getUid(),
+									.getReadableDatabase(), event.getUid(), event.getReminderID(), event.getEventID(),
 							false);
 					// 从日历删除
 					deleteFromCalender();

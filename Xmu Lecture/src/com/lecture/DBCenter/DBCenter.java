@@ -40,6 +40,8 @@ public class DBCenter extends SQLiteOpenHelper {
 		private static String LECTURE_LIKE = "Llike";// 是否喜欢，从LIKE_TABLE中获取，默认不喜欢
 		private static String LECTURE_REMIND = "Lisremind";// 是否收藏，从COLLECTION_TABLE中获取，默认不收藏
 		private static String LECTURE_LIKECOUNT = "Likecount";// like 点赞数量
+		private static String LECTURE_REMINDERID = "LreminderID";  //设置日历提醒
+		private static String LECTURE_EVENTID    = "LeventID";  //设置日历提醒
 		//--------------------LECTURE_TABLE---------------------------
 		
 		//--------------------CollectionTable---------------------------
@@ -48,6 +50,9 @@ public class DBCenter extends SQLiteOpenHelper {
 		private static String COLLECTION_ID = "Cid";
 		private static String COLLECTION_UID = "Cuid";
 		private static String ISREMIND = "isRemind";
+		//下面是咸鱼的添加，用于解决关闭App再打开时还能够删除日历  2014年 8月14日  10；18
+		private static String REMINDERID = "reminderID";
+		private static String EVENTID    = "eventID";
 		//--------------------CollectionTable---------------------------
 		
 		//----LikeTable
@@ -58,26 +63,22 @@ public class DBCenter extends SQLiteOpenHelper {
 		//----LikeTable
 		
 
-		
-		//-------------------------------------------------这些暂时用不到，但是先做保留		
-				//下面是详细信息的字段
-				//private static String SPEAKER_INFO = "whoinfo";// 主讲人详细信息
-				//private static String TITLE_MESSAGE = "whatinfo";// 讲座详细内容
-				//private static String SUBJECT = "sub";// 讲座分类
-				//private static String TAG = "tag";// 讲座标签
-				//-------------------------------------------------这些暂时用不到，但是先做保留
-		
+	
 
 		
 		//Collection table create
 		private static final String COLLECTION_TABLE_CREATE = "create table " + COLLECTION_TABLE
 				+ "(" + COLLECTION_ID + " integer primary key autoincrement,"
-				+ COLLECTION_UID + " varchar(64) UNIQUE," + ISREMIND + " integer" + ")";
+				+ COLLECTION_UID + " varchar(64) UNIQUE," + ISREMIND + " integer,"
+				+ REMINDERID + " varchar(64)," + EVENTID + " varchar(64)"
+				+ ")";
 		
 		//Like table create
 		private static final String LIKE_TABLE_CREATE = "create table " + LIKE_TABLE
 				+ "(" + LIKE_ID + " integer primary key autoincrement,"
-				+ LIKE_UID + " varchar(64) UNIQUE," + ISLIKE + " integer" + ")";
+				+ LIKE_UID + " varchar(64) UNIQUE," + ISLIKE + " integer" 
+				
+				+ ")";
 		
 		
 		
@@ -89,7 +90,9 @@ public class DBCenter extends SQLiteOpenHelper {
 				+ LECTURE_UID + " varchar(64) UNIQUE," + LECTURE_TITLE + " varchar(64)," 
 				+ LECTURE_DATE + " varchar(64)," + LECTURE_ADDRESS + " varchar(64)," + LECTURE_SPEAKER + " varchar(64),"
 				+ LECTURE_LINK + " varchar(64),"+ LECTURE_LIKE + " integer," + LECTURE_REMIND + " integer,"
-				+ LECTURE_LIKECOUNT +" integer" + ")";
+				+ LECTURE_LIKECOUNT +" integer,"
+				+ LECTURE_REMINDERID + " varchar(64)," + LECTURE_EVENTID + " varchar(64)"
+				+ ")";
 		//------------------------------创建 LectureTable-------------------
 		
 		
@@ -185,6 +188,22 @@ public class DBCenter extends SQLiteOpenHelper {
 			db.execSQL("UPDATE " + LECTURE_TABLE + " SET " + LECTURE_REMIND + "=0 WHERE " + LECTURE_UID + " NOT IN (SELECT " + COLLECTION_UID + " FROM "
 					+ COLLECTION_TABLE + " WHERE 1" + ")");
 			
+			
+			
+			
+			///////////
+			Cursor cursor;
+			cursor = db.rawQuery("select * from " + COLLECTION_TABLE + " where 1",new String[]{});
+			
+			while (cursor.moveToNext()) {
+				
+				//下面开始设置日历提醒的reminderID 以及 eventID
+				db.execSQL("UPDATE " + LECTURE_TABLE + " SET " + LECTURE_REMINDERID + "=" + cursor.getString(3) + "," + LECTURE_EVENTID + "=" + cursor.getString(4) + " WHERE " + LECTURE_UID + "=" + cursor.getString(1) );
+				//db.execSQL("UPDATE " + LECTURE_TABLE + " SET " + LECTURE_EVENTID + "=" + cursor.getString(4) + " WHERE " + LECTURE_UID + "=" + cursor.getString(1) );
+
+				
+			}
+			
 			Log.i("收藏列表", "结束更新");
 			
 		}
@@ -202,12 +221,12 @@ public class DBCenter extends SQLiteOpenHelper {
 			refreshLike(db);  //更新LectureTable
 		}
 		//coloection table finc set collect
-		public static void setRemind(SQLiteDatabase db, String collectionUid, Boolean isReminded){
+		public static void setRemind(SQLiteDatabase db, String collectionUid, String reminderID, String eventID, Boolean isReminded){
 			Log.i("Collection列表", "开始setRemind");
 			
 		 //TODO 检验SQL语句的正确性
 			if(isReminded)
-				db.execSQL("INSERT OR IGNORE INTO " + COLLECTION_TABLE + " VALUES(null , ? , ?)",new String[] { collectionUid, "1" });
+				db.execSQL("INSERT OR IGNORE INTO " + COLLECTION_TABLE + " VALUES(null , ? , ? , ? , ?)",new String[] { collectionUid, "1", reminderID, eventID });
 			else
 				db.execSQL("DELETE FROM " + COLLECTION_TABLE + " WHERE " + COLLECTION_UID + "=?",new String[] { collectionUid });
 			Log.i("Collection列表", "结束setRemind");
@@ -238,9 +257,9 @@ public class DBCenter extends SQLiteOpenHelper {
 			else
 				isReminded = 0;
 			
-			db.execSQL("insert OR IGNORE into " + tableName + " values(null , ? , ? , ? , ? , ?, ?, ?, ?, ?)",
+			db.execSQL("insert OR IGNORE into " + tableName + " values(null , ? , ? , ? , ? , ?, ?, ?, ?, ?, ?, ?)",
 					new String[] { event.getUid(), event.getTitle(),event.getTime(), event.getAddress(),
-					event.getSpeaker(), event.getLink(), String.format("%d", isLike), String.format("%d", isReminded), String.format("%d", event.getLikeCount()) });
+					event.getSpeaker(), event.getLink(), String.format("%d", isLike), String.format("%d", isReminded), String.format("%d", event.getLikeCount()), "", "" });
 			Log.i("insert into LectureTable", "插入数据库结束！");
 			
 		}
@@ -306,6 +325,8 @@ public class DBCenter extends SQLiteOpenHelper {
 					event.setReminded(false);
 				//可能出错
 				event.setLikeCount(cursor.getString(9));
+				event.setReminderID( cursor.getString(10) );
+				event.setEventID( cursor.getString(11) );
 				
 				result.add(event);  //加入到 result
 			}
@@ -341,6 +362,8 @@ public class DBCenter extends SQLiteOpenHelper {
 						event.setReminded(false);
 					//可能出错
 					event.setLikeCount(cursor.getString(9));
+					event.setReminderID( cursor.getString(10) );
+					event.setEventID( cursor.getString(11) );
 					
 					result.add(event);  //加入到 result
 					

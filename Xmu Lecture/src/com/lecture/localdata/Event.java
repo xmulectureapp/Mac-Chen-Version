@@ -21,6 +21,10 @@ public class Event implements Serializable {
 	private DetailInfo detailInfo;
 	private ReminderInfo reminderInfo;
 	
+	//下面是咸鱼的添加，用于解决关闭App再打开时还能够删除日历  2014年 8月14日  10；18
+	private String reminderID;
+	private String eventID;
+	
 	//new interface
 	private int likeCount;
 
@@ -36,6 +40,8 @@ public class Event implements Serializable {
 		detailInfo = new DetailInfo();
 		reminderInfo = new ReminderInfo(0, 0);
 		likeCount = 0;
+		reminderID = "";
+		eventID    = "";
 	}
 	
 	public Event(String id) {
@@ -204,6 +210,24 @@ public class Event implements Serializable {
 	public void setReminderInfo(ReminderInfo reminderInfo) {
 		this.reminderInfo = reminderInfo;
 	}
+	
+	public void setReminderID(String reminderID){
+		
+		this.reminderID = reminderID;
+	}
+	
+	public String getReminderID(){
+		
+		return reminderID;
+	}
+	
+	public void setEventID(String eventID){
+		this.eventID = eventID;
+	}
+	
+	public String getEventID(){
+		return eventID;
+	}
 
 	public Event merger(Event data2) {
 		this.isLike = data2.isLike;
@@ -218,4 +242,7 @@ public class Event implements Serializable {
 		return "讲座名称：" + title + "\n讲座地址：" + address + "\n讲座时间：" + time
 				+ "\n主讲人：" + speaker;
 	}
+	
+	
+	
 }
