@@ -33,7 +33,7 @@ public class LikeInterface {
 				InputStream in = null;
 				try {
 					Log.i("DownLoad","开始设置Url并开始下载！");
-					URL url = new URL("http://lecture.xmu.edu.cn/like_interface.php?id="+id+"&isliked="+isLiked);
+					URL url = new URL("http://lecture.xmu.edu.cn/appinterface/like_interface.php?id="+id+"&isliked="+isLiked);
 					connection = (HttpURLConnection) url.openConnection();
 					if(connection.getResponseCode() == HttpURLConnection.HTTP_OK)
 						Log.i("按赞","连接成功！");

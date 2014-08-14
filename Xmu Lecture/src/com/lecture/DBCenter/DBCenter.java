@@ -189,8 +189,6 @@ public class DBCenter extends SQLiteOpenHelper {
 					+ COLLECTION_TABLE + " WHERE 1" + ")");
 			
 			
-			
-			
 			///////////
 			Cursor cursor;
 			cursor = db.rawQuery("select * from " + COLLECTION_TABLE + " where 1",new String[]{});
@@ -198,7 +196,7 @@ public class DBCenter extends SQLiteOpenHelper {
 			while (cursor.moveToNext()) {
 				
 				//下面开始设置日历提醒的reminderID 以及 eventID
-				db.execSQL("UPDATE " + LECTURE_TABLE + " SET " + LECTURE_REMINDERID + "=" + cursor.getString(3) + "," + LECTURE_EVENTID + "=" + cursor.getString(4) + " WHERE " + LECTURE_UID + "=" + cursor.getString(1) );
+				db.execSQL("UPDATE " + LECTURE_TABLE + " SET " + LECTURE_REMINDERID + "=" +  setStringNotEmpty( cursor.getString(3) ) + "," + LECTURE_EVENTID + "=" + setStringNotEmpty( cursor.getString(4) ) + " WHERE " + LECTURE_UID + "=" + cursor.getString(1) );
 				//db.execSQL("UPDATE " + LECTURE_TABLE + " SET " + LECTURE_EVENTID + "=" + cursor.getString(4) + " WHERE " + LECTURE_UID + "=" + cursor.getString(1) );
 
 				
@@ -422,4 +420,13 @@ public class DBCenter extends SQLiteOpenHelper {
 					+ "--->" + newVersion);
 		}
 
+		//用于解决update没有值的执行错误  by 咸鱼  2014年8月14 中午
+		public static String setStringNotEmpty(String string){
+			
+			if(string == null || string.equals(""))
+				string = "0";
+			
+			return string;
+			
+		}
 }

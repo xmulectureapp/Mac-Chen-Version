@@ -23,14 +23,14 @@
 			android:orientation="vertical" >
 			
 			<TextView
-		android:id="@+id/top_textView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:paddingTop="3dp"
-		android:text="厦大讲座网"
-		android:textColor="@color/main_menu_pressed"
-		android:textSize="25sp" />
+			    android:id="@+id/top_textView"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="center"
+			    android:paddingTop="3dp"
+			    android:text="厦大讲座网"
+			    android:textColor="@color/item_transparent"
+			    android:textSize="25sp" />
 
 			<TextView
 				android:id="@+id/personal"

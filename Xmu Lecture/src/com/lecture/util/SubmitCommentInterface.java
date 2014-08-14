@@ -54,7 +54,7 @@ public class SubmitCommentInterface {
 					mCallback.onStart();
 					
 					Log.i("提交评论","开始提交！");
-					URL url = new URL("http://lecture.xmu.edu.cn/submitComment.php?xml=" + URLEncoder.encode(xml, "UTF-8") );
+					URL url = new URL("http://lecture.xmu.edu.cn/appinterface/submit_comment_interface.php?xml=" + URLEncoder.encode(xml, "UTF-8") );
 					
 					connection = (HttpURLConnection) url.openConnection();
 					if(connection.getResponseCode() == HttpURLConnection.HTTP_OK)
