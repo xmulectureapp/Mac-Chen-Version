@@ -216,20 +216,20 @@
 				android:orientation="vertical" >
 
 				<Button
-					android:id="@+id/btn_submit"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_gravity="center"
-					android:background="#804f3e62"
-					android:gravity="center"
-					android:paddingBottom="3dp"
-					android:paddingLeft="27dp"
-					android:paddingRight="27dp"
-					android:paddingTop="3dp"
-					android:text="提交讲座"
-					android:textColor="@color/item_content"
-					android:textSize="17sp"
-					android:textStyle="bold" >
+				    android:id="@+id/btn_submit"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_gravity="center"
+				    android:background="@drawable/button_selector"
+				    android:gravity="center"
+				    android:paddingBottom="3dp"
+				    android:paddingLeft="27dp"
+				    android:paddingRight="27dp"
+				    android:paddingTop="3dp"
+				    android:text="提交讲座"
+				    android:textColor="@color/item_content"
+				    android:textSize="17sp"
+				    android:textStyle="bold" >
                     
 				</Button>
 			</LinearLayout>

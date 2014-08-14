@@ -53,11 +53,12 @@
 			android:weightSum="3" >
 
 			<RelativeLayout
-				android:id="@+id/wechat_share"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_weight="1"
-				android:paddingBottom="10dp" >
+			    android:id="@+id/wechat_share"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:layout_weight="1"
+			    android:background="@drawable/popwindow_selector"
+			    android:paddingBottom="10dp" >
 
 				<ImageView
 					android:layout_width="match_parent"
@@ -80,11 +81,12 @@
 			</RelativeLayout>
 
 			<RelativeLayout
-				android:id="@+id/wechat_circle_share"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_weight="1"
-				android:paddingBottom="10dp" >
+			    android:id="@+id/wechat_circle_share"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:layout_weight="1"
+			    android:background="@drawable/popwindow_selector"
+			    android:paddingBottom="10dp" >
 
 				<ImageView
 					android:layout_width="match_parent"
@@ -107,11 +109,12 @@
 			</RelativeLayout>
 
 			<RelativeLayout
-				android:id="@+id/weibo_share"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_weight="1"
-				android:paddingBottom="10dp" >
+			    android:id="@+id/weibo_share"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:layout_weight="1"
+			    android:background="@drawable/popwindow_selector"
+			    android:paddingBottom="10dp" >
 
 				<ImageView
 					android:layout_width="match_parent"
@@ -149,14 +152,15 @@
 				android:background="@color/item_line" />
 			
 			<ImageView
-				android:id="@+id/share_exit"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_marginTop="3dp"
-				android:paddingBottom="3dp"
-				android:paddingTop="3dp"
-				android:scaleType="center"
-				android:src="@drawable/pop_exit" />
+			    android:id="@+id/share_exit"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:layout_marginTop="3dp"
+			    android:background="@drawable/popwindow_selector"
+			    android:paddingBottom="3dp"
+			    android:paddingTop="3dp"
+			    android:scaleType="center"
+			    android:src="@drawable/pop_exit" />
 			
 		</LinearLayout>
 	</LinearLayout>
