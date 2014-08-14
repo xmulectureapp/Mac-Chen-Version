@@ -50,10 +50,6 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler  {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		
-		
-		
 		
 		setContentView(R.layout.wechat_share);
 		
@@ -122,12 +118,15 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler  {
 			break;
 		case BaseResp.ErrCode.ERR_USER_CANCEL:
 			result = "分享取消";
+			isReopen = true;//回调的时候设置为true， 然后在OnCreate中finish
 			break;
 		case BaseResp.ErrCode.ERR_AUTH_DENIED:
 			result = "分享失败";
+			isReopen = true;//回调的时候设置为true， 然后在OnCreate中finish
 			break;
 		default:
 			result = "分享出现异常";
+			isReopen = true;//回调的时候设置为true， 然后在OnCreate中finish
 			break;
 		}
 		Toast.makeText(this, result, Toast.LENGTH_LONG).show();

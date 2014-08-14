@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class CommentView extends Activity {
@@ -27,6 +28,10 @@ public class CommentView extends Activity {
 	private Event toCommentEvent;
 	private Comment comment;
 	private String commentReplay;
+	
+	//下面是咸鱼的增加，用于增加返回 主页的header top 左边的按键  2014年8月14日  
+	public LinearLayout commentHeaderLeftLinearLayout;
+		
 	
 	
 	//——————————————————————下面是用于handler的消息标记
@@ -115,6 +120,19 @@ public class CommentView extends Activity {
 		
 		if( ! commentReplay.isEmpty() )
 			commentEditText.setHint( commentReplay + "请输入回复内容" );
+		
+		
+		commentHeaderLeftLinearLayout = (LinearLayout)findViewById(R.id.comment_header_left_linearLayout);
+		commentHeaderLeftLinearLayout.setOnClickListener( new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				finish();
+				overridePendingTransition(R.anim.show_in_left, R.anim.hide_in_right	);
+				
+			}
+		} );
 		
 		commentButton.setOnClickListener(new View.OnClickListener() {
 			

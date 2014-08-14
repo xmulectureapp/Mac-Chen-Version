@@ -466,18 +466,7 @@ public class SubscribeMyadapter extends BaseAdapter
 			// 记录数据
 			event.setReminderInfo(new ReminderInfo(eventId, reminderId));
 
-			// setAlarmDeal(startMillis); //
-			// 设置reminder开始的时候，启动另一个activity
-			// // 设置全局定时器
-			// Intent intent = new Intent(this,
-			// AlarmActivity.class);
-			// PendingIntent pi =
-			// PendingIntent.getActivity(this, 0, intent, 0);
-			// AlarmManager aManager = (AlarmManager)
-			// getSystemService(Service.ALARM_SERVICE);
-			// aManager.set(AlarmManager.RTC_WAKEUP, time, pi);
-			// //
-			// 当系统调用System.currentTimeMillis()方法返回值与time相同时启动pi对应的组件
+			
 
 			Toast.makeText(mContext, "添加到 收藏页面&日历 成功", Toast.LENGTH_SHORT).show();
 		}
@@ -519,30 +508,32 @@ public class SubscribeMyadapter extends BaseAdapter
 	    private OnClickListener  shareItemsOnClick = new OnClickListener(){
 
 			public void onClick(View v) {
+				Intent intent;
 				
 				switch (v.getId()) {
 				case R.id.wechat_share:
-					Toast.makeText(mContext, "微信分享", Toast.LENGTH_LONG).show();
-					//
+					Toast.makeText(mContext, "微信好友", Toast.LENGTH_LONG).show();
 					
-					Intent intent = new  Intent(mContext, WXEntryActivity.class);	
 					
+					intent = new  Intent(mContext, WXEntryActivity.class);	
 					intent.putExtra("shareEvent", event);
-					
 					mContext.startActivity(intent);
+					
 					if(popShareMenu != null)
 						popShareMenu.dismiss();
 					
-					//intent.putExtras(detail_bundle);
-					//intent.putExtra("whichCenter", "remindCenter");
-					//startActivityForResult(intent, 2);
-					//overridePendingTransition(R.anim.show_in_right, R.anim.hide_in_left	);
+					
 					
 					
 					break;
 				case R.id.wechat_circle_share:
 					Toast.makeText(mContext, "微信朋友圈", Toast.LENGTH_LONG).show();
-					shareToFriend();
+					
+					
+					intent = new  Intent(mContext, WXEntryActivity.class);	
+					intent.putExtra("shareEvent", event);
+					intent.putExtra("isSharedToSession", false);
+					mContext.startActivity(intent);
 					
 					if(popShareMenu != null)
 						popShareMenu.dismiss();
@@ -557,12 +548,11 @@ public class SubscribeMyadapter extends BaseAdapter
 					ComponentName comp = new ComponentName("com.sina.weibo", "com.sina.weibo.EditActivity");  
 	                sendIntent.setComponent(comp);
 	                
-	                //event = mData.get(position);
 	                if( event != null){
 	                	try { 
 	                	sendIntent.setAction(Intent.ACTION_SEND);
 	                	//sendIntent.setType("text/plain");
-	                	sendIntent.setType("image/jpg");
+	                	sendIntent.setType("text");
 	                	sendIntent.putExtra(Intent.EXTRA_TITLE, "分享");
 	                	
 	                	sendIntent.putExtra(Intent.EXTRA_TEXT,
@@ -571,17 +561,16 @@ public class SubscribeMyadapter extends BaseAdapter
 									+ "时间: " + event.getCustomTime() +" | " 
 									+ "地点: " + "#" + event.getAddress().substring(0, 4) + "#" + event.getAddress().substring(4) + " | " 
 									+ "主讲: " + event.getSpeaker() + " | "
-									+ "获取详情: "
-									+ event.getLink()  + " From:#厦大讲座App Especially#" );
-	                	//sendIntent.putExtra(Intent.EXTRA_TEXT, event.getAddress());
-	                	//sendIntent.putExtra(Intent.EXTRA_TEXT, event.getSpeaker());
+									+ "详情点击: "
+									+ event.getLink()  + " From #厦大讲座App Especially#" );
+	                	
 	                	sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
 			
 	                	mContext.startActivity(sendIntent);
 	                	
 	                	}
 	                	catch (Exception e) {  
-	                        Toast.makeText(mContext, "您没有装Sina Weibo 或者 版本过低，未能够分享！", Toast.LENGTH_LONG).show();  
+	                        Toast.makeText(mContext, "您的微博未打开 或者 版本过低，未能够分享！", Toast.LENGTH_LONG).show();  
 	                    } 
 					
 	                }
@@ -593,21 +582,13 @@ public class SubscribeMyadapter extends BaseAdapter
 					
 					break;
 				default:
+					
 					break;
 				}
 			}
 	    };
 	    
-	    private void shareToFriend() {  
-	        Intent intent = new Intent();  
-	        ComponentName componentName = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareImgUI");  
-	        intent.setComponent(componentName);  
-	        intent.setAction(Intent.ACTION_SEND);  
-	        intent.setType("image/*");  
-	        intent.putExtra(Intent.EXTRA_TEXT, "测试微信");
-	        //intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));  
-	        mContext.startActivity(intent);  
-	    }  
+	    
 		
 		
 }// end adapter

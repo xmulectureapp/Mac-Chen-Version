@@ -9,7 +9,9 @@ import java.util.List;
 
 import com.lecture.DBCenter.DBCenter;
 import com.lecture.DBCenter.XMLToList;
+import com.lecture.layoutUtil.PopShareView;
 import com.lecture.layoutUtil.RefreshableView;
+import com.lecture.lectureapp.wxapi.WXEntryActivity;
 import com.lecture.localdata.Comment;
 import com.lecture.localdata.DetailInfo;
 import com.lecture.localdata.Event;
@@ -22,6 +24,7 @@ import com.lecture.util.GetDetailUtil.GetDetailCallback;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -40,8 +43,10 @@ import android.provider.CalendarContract.Reminders;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -88,6 +93,11 @@ public class DetailView extends Activity {
 	//下面是咸鱼的代码，用于解决点赞的bug  2014 - 08 - 10 13:22
 	ConnectivityManager mConnectivityManager; 
 	NetworkInfo mNetworkInfo; 
+	
+	
+	//下面是咸鱼的增加，用于实现分享  2014-08-14 09:12
+	  private PopShareView popShareMenu;
+	  
 	
 	
 	// ——————————————————————下面是用于handler的消息标记
@@ -141,7 +151,7 @@ public class DetailView extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.lecture_detail);
+		setContentView(R.layout.detail_view);
 
 		
 		tvname = (TextView) findViewById(R.id.detail_lecture_name);
@@ -222,25 +232,16 @@ public class DetailView extends Activity {
 
 		linearBtnShare.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				// showInfo1();
-				Event event = detail_lectureEvent;
-				Intent sendIntent = new Intent();
-				sendIntent.setAction(Intent.ACTION_SEND);
-				// sendIntent.setType("text/plain");
-				sendIntent.setType("image/jpg");
-				sendIntent.putExtra(Intent.EXTRA_TITLE, "分享");
-				sendIntent.putExtra(
-						Intent.EXTRA_TEXT,
-						"Hi，跟你分享一个有趣的讲座。" + "\n" + "主题：" + event.getTitle()
-								+ "\n" + "时间：" + event.getTime() + "\n" + "地点："
-								+ event.getAddress() + "\n" + "主讲："
-								+ event.getSpeaker() + "\n" + "（来自厦大讲座网）"
-								+ "\n" + event.getLink());
-				// sendIntent.putExtra(Intent.EXTRA_TEXT, event.getAddress());
-				// sendIntent.putExtra(Intent.EXTRA_TEXT, event.getSpeaker());
-				sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				
 
-				DetailView.this.startActivity(sendIntent);
+				
+		    	 //下面是咸鱼的增加，用于实现分享  2014-08-11 20:34
+		    	
+		    //实例化
+		    popShareMenu = new PopShareView( DetailView.this, shareItemsOnClick);
+   			//显示窗口
+   			popShareMenu.showAtLocation( DetailView.this.findViewById(R.id.detailview_linearLayout) , Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0); //设置layout在PopupWindow中显示的位置
+   			
 
 			}
 		});
@@ -294,11 +295,7 @@ public class DetailView extends Activity {
 			    		else
 			    			textViewLike.setText(adaptPlace(String.format("%d", event.getLikeCount())));
 			    		
-			    		// x下面代码来自咸鱼的增加，用于点赞后返回时刷新相应listView 2014 08 10   13:59
-			    		Intent intent = new Intent(); 
-						setResult( 2,   intent.putExtra("whichCenter", getIntent().getStringExtra("whichCenter"))  );
-						
-		    		
+			    		
 		    		}
 		    		else {
 		    			
@@ -345,16 +342,20 @@ public class DetailView extends Activity {
 		    			
 					}
 		    		
-		    		// x下面代码来自咸鱼的增加，用于点赞后返回时刷新相应listView 2014 08 10   13:59
-		    		Intent intent = new Intent(); 
-					setResult(2,   intent.putExtra("whichCenter", getIntent().getStringExtra("whichCenter"))  );
+		    		
 		    		
 				}
 				
-				///////
+				
+				
+				// x下面代码来自咸鱼的增加，用于点赞后返回时刷新相应listView 2014 08 10   13:59
+	    		Intent intent = new Intent(); 
+				setResult(2,   intent.putExtra("whichCenter", getIntent().getStringExtra("whichCenter"))  );
 
 				
 			}
+			
+			
 		});
 
 		linearBtnRemind.setOnClickListener(new View.OnClickListener() {
@@ -769,6 +770,91 @@ public class DetailView extends Activity {
 				return false;
 				
 			}
+			
+			
+			//为弹出窗口popShareMenu实现监听类    2014  08   14   09:15
+		    private OnClickListener  shareItemsOnClick = new OnClickListener(){
+
+				public void onClick(View v) {
+					Intent intent;
+					
+					switch (v.getId()) {
+					case R.id.wechat_share:
+						Toast.makeText(DetailView.this, "微信好友", Toast.LENGTH_LONG).show();
+						
+						
+						intent = new  Intent(DetailView.this, WXEntryActivity.class);	
+						intent.putExtra("shareEvent", detail_lectureEvent);
+						startActivity(intent);
+						
+						if(popShareMenu != null)
+							popShareMenu.dismiss();
+						
+						
+						
+						
+						break;
+					case R.id.wechat_circle_share:
+						Toast.makeText(DetailView.this, "微信朋友圈", Toast.LENGTH_LONG).show();
+						
+						
+						intent = new  Intent(DetailView.this, WXEntryActivity.class);	
+						intent.putExtra("shareEvent", detail_lectureEvent);
+						intent.putExtra("isSharedToSession", false);
+						startActivity(intent);
+						
+						if(popShareMenu != null)
+							popShareMenu.dismiss();
+						
+						
+						break;
+					case R.id.weibo_share:
+						Toast.makeText(DetailView.this, "新浪微博", Toast.LENGTH_LONG).show();
+						
+						Intent sendIntent = new Intent();
+						
+						ComponentName comp = new ComponentName("com.sina.weibo", "com.sina.weibo.EditActivity");  
+		                sendIntent.setComponent(comp);
+		                
+		                if( detail_lectureEvent != null){
+		                	try { 
+		                	sendIntent.setAction(Intent.ACTION_SEND);
+		                	//sendIntent.setType("text/plain");
+		                	sendIntent.setType("text");
+		                	sendIntent.putExtra(Intent.EXTRA_TITLE, "分享");
+		                	
+		                	sendIntent.putExtra(Intent.EXTRA_TEXT,
+		                			"#" + detail_lectureEvent.getAddress().substring(0, 4) + "讲座#"
+										+ "【" + detail_lectureEvent.getTitle()+ "】" + " " 
+										+ "时间: " + detail_lectureEvent.getCustomTime() +" | " 
+										+ "地点: " + "#" + detail_lectureEvent.getAddress().substring(0, 4) + "#" + detail_lectureEvent.getAddress().substring(4) + " | " 
+										+ "主讲: " + detail_lectureEvent.getSpeaker() + " | "
+										+ "详情点击: "
+										+ detail_lectureEvent.getLink()  + " From #厦大讲座App Especially#" );
+		                	
+		                	sendIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
+				
+		                	startActivity(sendIntent);
+		                	
+		                	}
+		                	catch (Exception e) {  
+		                        Toast.makeText(DetailView.this, "您的微博未打开 或者 版本过低，未能够分享！", Toast.LENGTH_LONG).show();  
+		                    } 
+						
+		                }
+		                
+		                if(popShareMenu != null)
+							popShareMenu.dismiss();
+						
+						
+						
+						break;
+					default:
+						
+						break;
+					}
+				}
+		    };
 	
 
 }// end class
