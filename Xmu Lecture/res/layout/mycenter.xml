@@ -196,15 +196,15 @@
 			</LinearLayout>
 
 			<TextView
-				android:id="@+id/tv_chooseday"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/my_linearlayout2"
-				android:layout_gravity="center_horizontal"
-				android:paddingTop="3dp"
-				android:text="讲座时间(可复选):"
-				android:textColor="@color/item_content"
-				android:textSize="15sp" />
+			    android:id="@+id/tv_chooseday"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/my_linearlayout2"
+			    android:layout_gravity="left|center_vertical"
+			    android:paddingTop="3dp"
+			    android:text="讲座时间(可复选):"
+			    android:textColor="@color/item_content"
+			    android:textSize="15sp" />
 
 			<LinearLayout
 				android:id="@+id/my_linearlayout3"
@@ -300,22 +300,42 @@
 				android:paddingTop="10dp" >
 
 				<Button
-					android:id="@+id/save_settings"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentBottom="true"
-					android:layout_gravity="center"
-					android:background="#804f3e62"
-					android:gravity="center"
-					android:onClick="save"
-					android:paddingBottom="3dp"
-					android:paddingLeft="27dp"
-					android:paddingRight="27dp"
-					android:paddingTop="3dp"
-					android:text="保存设置"
-					android:textColor="@color/item_content"
-					android:textSize="17sp"
-					android:textStyle="bold" />
+				    android:id="@+id/save_settings"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_alignParentBottom="true"
+				    android:layout_gravity="center"
+				    android:layout_marginRight="5dp"
+				    android:background="#804f3e62"
+				    android:gravity="center"
+				    android:onClick="save"
+				    android:paddingBottom="3dp"
+				    android:paddingLeft="27dp"
+				    android:paddingRight="27dp"
+				    android:paddingTop="3dp"
+				    android:text="保存设置"
+				    android:textColor="@color/item_content"
+				    android:textSize="17sp"
+				    android:textStyle="bold" />
+
+				<Button
+				    android:id="@+id/about_setting"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_alignParentBottom="true"
+				    android:layout_gravity="center"
+				    android:layout_marginLeft="5dp"
+				    android:background="#804f3e62"
+				    android:gravity="center"
+				    android:onClick="save"
+				    android:paddingBottom="3dp"
+				    android:paddingLeft="27dp"
+				    android:paddingRight="27dp"
+				    android:paddingTop="3dp"
+				    android:text="关于设置"
+				    android:textColor="@color/item_content"
+				    android:textSize="17sp"
+				    android:textStyle="bold" />
 				
 			</LinearLayout>
 

@@ -48,6 +48,9 @@
         <activity
             android:name="com.lecture.lectureapp.SubmitCenter"/>
         
+        <activity
+            android:name="com.lecture.lectureapp.AboutPages"/>
+        
     <activity
             android:name=".wxapi.WXEntryActivity"
             android:label="厦大讲座"

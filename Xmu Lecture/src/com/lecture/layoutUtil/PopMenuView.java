@@ -85,7 +85,8 @@ public class PopMenuView extends PopupWindow  {
 		//xianyu edit
 		
 		
-		ColorDrawable dw = new ColorDrawable(0x80000000);
+		//ColorDrawable dw = new ColorDrawable(0x80000000);
+		ColorDrawable dw = new ColorDrawable(0xa0000000);
 		this.setBackgroundDrawable(dw);
 		mMenuView.setOnTouchListener(new OnTouchListener() {
 			

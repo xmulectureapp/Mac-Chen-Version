@@ -8,19 +8,28 @@
 	android:orientation="vertical" >
 	
     <RelativeLayout
-	    
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:background="#00000000"
-		android:layout_above="@+id/pop_layout"
-		android:gravity="center_horizontal"
-		android:orientation="vertical" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/pop_layout"
+        android:background="@color/item_transparent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 		
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/logo_textView"
             android:layout_centerInParent="true"
-            android:src="@drawable/logo_white" />
+            android:src="@drawable/logo_red" />
+        
+        <TextView
+            android:id="@+id/logo_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="一则讲座，改变一生"
+            android:textColor="#ff5648"
+            android:textStyle="bold" />
         
 	</RelativeLayout>
 	

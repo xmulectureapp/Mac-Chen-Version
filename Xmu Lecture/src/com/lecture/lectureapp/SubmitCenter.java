@@ -15,6 +15,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -123,6 +124,19 @@ public class SubmitCenter extends Activity {
 		string_speaker_information = (EditText) findViewById(R.id.string_speaker_information);
 		string_more_information = (EditText) findViewById(R.id.string_more_information);
 		string_information_source = (EditText) findViewById(R.id.string_information_source);
+		
+		
+		(   (Button) findViewById(R.id.btn_about_submit)  ).setOnClickListener( new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				Intent intent = new Intent(SubmitCenter.this, AboutPages.class);
+				intent.putExtra("whichPage", "aboutSubmit");
+				startActivity( intent );
+				
+			}
+		});
 
 		/*
 		 * mSpinner = (Spinner) findViewById(R.id.string_campus); // 建立数据源

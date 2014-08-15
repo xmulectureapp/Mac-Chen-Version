@@ -63,6 +63,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -892,6 +893,20 @@ public class MainView extends Activity
 			}
 		});
 		
+		
+		((Button) view5.findViewById(R.id.about_setting))
+				.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+
+						Intent intent = new Intent(MainView.this,AboutPages.class);
+						intent.putExtra("whichPage", "aboutSetting");
+						startActivity(intent);
+
+					}
+				});
+		
 	}    // end function onCreate()
 	
 	//下面是来自Yebin的添加，用于解决没有任何讲座时的提醒显示
@@ -1581,19 +1596,48 @@ public class MainView extends Activity
     private OnClickListener  itemsOnClick = new OnClickListener(){
 
 		public void onClick(View v) {
-			
+			Intent intent;
 			switch (v.getId()) {
 			case R.id.about_author:
 				Toast.makeText(MainView.this, "关于作者", Toast.LENGTH_LONG).show();
+				
+				intent = new Intent(MainView.this, AboutPages.class);
+				intent.putExtra("whichPage", "aboutAuthor");
+				startActivity( intent );
+				
+				if( popMenu != null )
+					popMenu.dismiss();
+				
+				
 				break;
 			case R.id.about_xmu_lecture:
 				Toast.makeText(MainView.this, "关于讲座网", Toast.LENGTH_LONG).show();
+				
+				intent = new Intent(MainView.this, AboutPages.class);
+				intent.putExtra("whichPage", "aboutXmuLecture");
+				startActivity( intent );
+				
+				if( popMenu != null )
+					popMenu.dismiss();
+				
 				break;
 			case R.id.about_app:
 				Toast.makeText(MainView.this, "关于应用", Toast.LENGTH_LONG).show();
+
+				intent = new Intent(MainView.this, AboutPages.class);
+				intent.putExtra("whichPage", "aboutApp");
+				startActivity( intent );
+				
+				if( popMenu != null )
+					popMenu.dismiss();
+				
 				break;
 			case R.id.pop_exitImageView:
 				Toast.makeText(MainView.this, "已退出！", Toast.LENGTH_LONG).show();
+				
+				if( popMenu != null )
+					popMenu.dismiss();
+				
 				MainView.this.finish();
 				break;
 				
