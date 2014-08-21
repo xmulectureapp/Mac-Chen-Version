@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/item_view_background3"
+    android:orientation="vertical"
+    android:padding="4dp" >
+    
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="4dp" >
+
+      <ImageView
+          android:layout_width="80dp"
+          android:layout_height="24dp"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginBottom="30dp"
+          android:layout_marginTop="17dp"
+          android:scaleType="centerInside"
+          android:src="@drawable/xmu_logo" />
+      
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/item_line" />
+      
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:layout_marginTop="10dp"
+           android:text="In Memory Of A Giant"
+           android:gravity="center"
+           android:textColor="@color/main_menu_pressed"
+           android:textStyle="bold" />
+      
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:layout_marginTop="10dp"
+           android:text="“Your time is limited, so don’t waste it living someone else’s life. Don’t be trapped by dogma — which is living with the results of other people’s thinking. Don’t let the noise of others’ opinions drown out your own inner voice. And most important, have the courage to follow your heart and intuition. They somehow already know what you truly want to become. Everything else is secondary."
+           android:textColor="@color/item_content"
+           android:textStyle="italic|bold" />
+      
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:layout_marginBottom="5dp"
+           android:gravity="right"
+           android:text="-- Steve Jobs"
+           android:textColor="@color/main_menu_pressed"
+           android:textSize="15sp"
+           android:textStyle="italic|bold" />
+       
+         <ImageView
+             android:layout_width="fill_parent"
+             android:layout_height="1dp"
+             android:layout_marginTop="3dp"
+             android:background="@color/item_line" />
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:layout_marginTop="20dp"
+           android:text="关于作者："
+           android:textColor="@color/item_content"
+           android:textSize="17sp"
+           android:textStyle="italic" />
+      
+       <TextView
+           
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+            android:textColor="@color/main_menu_pressed"
+           android:text="      是的，很多时候想法别人无法帮你实现，所以我们决定－自己来!"
+           android:textStyle="italic" />
+       <TextView
+           
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+            android:textColor="@color/main_menu_pressed"
+            android:gravity="center"
+           android:text="欢迎联系我们－微信: xianyuxmu"
+           android:textStyle="italic" />
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:layout_marginTop="10dp"
+           android:text="感谢以下作者："
+           android:textColor="@color/item_content"
+           android:textSize="17sp"
+           android:textStyle="italic" />
+      
+       <TextView
+           
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+            android:textColor="@color/main_menu_pressed"
+           android:text="\n      陈烨彬: 2012级厦门大学本科生，厦大讲座App项目负责人！"
+           android:textStyle="italic" />
+       <TextView
+           
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+            android:textColor="@color/main_menu_pressed"
+           android:text="\n      张伟颖: 2011级厦门大学本科生！"
+           android:textStyle="italic" />
+       <TextView
+           
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+            android:textColor="@color/main_menu_pressed"
+           android:text="\n      柯泽扬: 2012级厦门大学本科生！"
+           android:textStyle="italic" />
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:paddingBottom="120dp"
+           android:text="\n      廖坤城: 2012级厦门大学本科生！"
+           android:textColor="@color/main_menu_pressed"
+           android:textStyle="italic" />
+       
+       </LinearLayout>
+       </ScrollView>
+
+</LinearLayout>
